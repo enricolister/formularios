@@ -14,7 +14,15 @@
                name="nombre"
                [(ngModel)]="usuario.nombre"
                required
-               minlength="5">
+               minlength="5"
+               #nombre="ngModel">
+
+               <div class="" *ngIf="nombre.errors?.required && !nombre.pristine">
+                 Este campo es requerido
+               </div>
+               <div class="" *ngIf="nombre.errors?.minlength">
+                Este campo requiere como minimo {{ nombre.errors.minlength.requiredLength }} caracteres
+              </div>
       </div>
     </div>
 
@@ -44,7 +52,7 @@
              name="email"
                [(ngModel)]="usuario.email"
                required
-               minlength="5">
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
     </div>
   </div>
 
