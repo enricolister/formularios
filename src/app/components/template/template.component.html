@@ -4,7 +4,7 @@
 
   <div>
 
-    <div class="form-group row">
+    <div class="form-group row" [ngClass]="{ 'has-danger': nombre.errors?.minlength || (nombre.errors?.required && !nombre.pristine) }">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
@@ -17,16 +17,16 @@
                minlength="5"
                #nombre="ngModel">
 
-               <div class="" *ngIf="nombre.errors?.required && !nombre.pristine">
+              <div class="form-control-feedback" *ngIf="nombre.errors?.required && !nombre.pristine">
                  Este campo es requerido
-               </div>
-               <div class="" *ngIf="nombre.errors?.minlength">
+              </div>
+              <div class="form-control-feedback" *ngIf="nombre.errors?.minlength">
                 Este campo requiere como minimo {{ nombre.errors.minlength.requiredLength }} caracteres
               </div>
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" [ngClass]="{ 'has-danger': apellido.errors?.minlength || (apellido.errors?.required && !apellido.pristine) }">
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
@@ -36,13 +36,21 @@
                name="apellido"
                [(ngModel)]="usuario.apellido"
                required
-               minlength="5">
+               minlength="5"
+               #apellido="ngModel">
+
+              <div class="form-control-feedback" *ngIf="apellido.errors?.required && !apellido.pristine">
+                Este campo es requerido
+              </div>
+              <div class="form-control-feedback" *ngIf="apellido.errors?.minlength">
+                Este campo requiere como minimo {{ apellido.errors.minlength.requiredLength }} caracteres
+              </div>
       </div>
     </div>
 
   </div>
 
-  <div class="form-group row">
+  <div class="form-group row" [ngClass]="{ 'has-danger': email.errors?.pattern || (email.errors?.required && !email.pristine) }">
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-8">
 
@@ -52,7 +60,15 @@
              name="email"
                [(ngModel)]="usuario.email"
                required
-               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+               #email="ngModel">
+
+              <div class="form-control-feedback" *ngIf="email.errors?.required && !email.pristine">
+                Este campo es requerido
+              </div>
+              <div class="form-control-feedback" *ngIf="email.errors?.pattern">
+                Este campo no respeta el formato de un correo electronico
+              </div>
     </div>
   </div>
 
@@ -61,7 +77,8 @@
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
+      <button [disabled]="!forma.valid"
+      type="submit" class="btn btn-outline-primary">
         Guardar
       </button>
     </div>
