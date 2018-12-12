@@ -17,7 +17,8 @@ export class TemplateComponent {
     apellido: "Lister",
     email: "default@email.com",
     pais: "",
-    sexo: "Hombre"
+    sexo: "Hombre",
+    acepta: false
   }
 
   paises = [{
@@ -28,6 +29,8 @@ export class TemplateComponent {
   codigo: "ESP",
   nombre: "Espana"
 }]
+
+sexos: string[] = ["Hombre", "Mujer"]
 
   constructor() { }
 
